@@ -67,4 +67,4 @@ where key_id = (SELECT key_id FROM st_tasks2 order by upd desc limit 1);
 #Вывод распределенных тасков через JSON
 SELECT  JSON_ARRAYAGG(JSON_OBJECT('Key', key_id, 'assignee', assignee)) as json
 from 
-(SELECT * FROM yandex.st_tasks) js
+(SELECT * FROM st_tasks) js
