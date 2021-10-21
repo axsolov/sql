@@ -13,18 +13,18 @@ WHERE UniqMainID IN
 		(SELECT UniqMainID,
 		ROW_NUMBER() OVER (PARTITION BY UserID, FIO ORDER BY UniqMainID) AS row_num      
 		FROM test) a  
-	WHERE row_num > 1)
+	WHERE row_num > 1);
 
 #б.1) Удаляет все более ранние строки (t1.UniqMainID) если есть совпадения по FIO, внезависимо от UserID. 
 
 DELETE t1 FROM test AS t1
 INNER JOIN test AS t2 
 WHERE t1.UniqMainID < t2.UniqMainID 
-AND t1.FIO = t2.FIO
+AND t1.FIO = t2.FIO;
 
 #б.2)  Оставляет все более ранние строки (SET t1.FIO = NULL) заменяя совпавдения значением NULL
 
 UPDATE test AS t1 
 INNER JOIN test AS t2 ON 
 	t1.FIO = t2.FIO AND t1.UniqMainID < t2.UniqMainID 
-	SET t1.FIO = NULL
+	SET t1.FIO = NULL;
